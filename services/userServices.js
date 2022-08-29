@@ -31,7 +31,7 @@ userServices.resetPassword = () => {
 userServices.forgotPassword = () => {
 
 }
-userServices.sendEmail = (emailAddress, subject, text) => {
+userServices.sendEmail = (emailAddress, subject, text, callBack) => {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -45,6 +45,9 @@ userServices.sendEmail = (emailAddress, subject, text) => {
   });
 
 
+// https://accounts.google.com/b/0/DisplayUnlockCaptcha
+// use for new device
+
     // send mail with defined transport object
     let info = transporter.sendMail({
       from: '"Kurz Myslim" <kurz.myslim@gmail.com>', // sender address
@@ -54,6 +57,7 @@ userServices.sendEmail = (emailAddress, subject, text) => {
       // html: "<b>Hello world?</b>", // html body
     }).then(info => {
       console.log("Message sent: %s", info.messageId);
+      callBack()
     });
 }
 module.exports = userServices;

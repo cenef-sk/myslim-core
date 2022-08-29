@@ -234,10 +234,11 @@ router.post('/forgot', function(req, res, next) {
 
 
         sendEmail(user.email, forgotSubject(lng),
-        forgotEmail(lng, token))
-        res.status(200).send({
-          success: true,
-        });
+        forgotEmail(lng, token), () => {
+          res.status(200).send({
+            success: true,
+          });
+        })
       } else {
         res.status(200).send({
           success: true,
